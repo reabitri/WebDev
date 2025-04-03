@@ -1,0 +1,121 @@
+const menu = [
+  {
+    id: 1,
+    title: "fluffy morning cakes",
+    category: "breakfast",
+    price: 15.99,
+    img: "./images/item-1.jpeg",
+    desc: `Light and airy pancakes with smooth cold brew tones and copper mug charm.`,
+  },
+  {
+    id: 2,
+    title: "retro burger stack",
+    category: "lunch",
+    price: 13.99,
+    img: "./images/item-2.jpeg",
+    desc: `Stacked patties with mumblecore heat, raw denim vibes, and a hint of helvetica spice.`,
+  },
+  {
+    id: 3,
+    title: "urban milkshake",
+    category: "shakes",
+    price: 6.99,
+    img: "./images/item-3.jpeg",
+    desc: `A chillwave delight of creamy swirl, vintage flavor, and photo booth nostalgia.`,
+  },
+  {
+    id: 4,
+    title: "southern sunrise",
+    category: "breakfast",
+    price: 20.99,
+    img: "./images/item-4.jpeg",
+    desc: `Pork belly with retro keffiyeh charm and a snackwave of truffaut brilliance.`,
+  },
+  {
+    id: 5,
+    title: "egg fusion melt",
+    category: "lunch",
+    price: 22.99,
+    img: "./images/item-5.jpeg",
+    desc: `Bold egg sandwich packed with pop-up flavor, meditation calm, and farm flair.`,
+  },
+  {
+    id: 6,
+    title: "cookie crumble shake",
+    category: "shakes",
+    price: 18.99,
+    img: "./images/item-6.jpeg",
+    desc: `Smooth Oreo base blended with heirloom energy and palo santo coolness.`,
+  },
+  {
+    id: 7,
+    title: "bacon rush roll",
+    category: "breakfast",
+    price: 8.99,
+    img: "./images/item-7.jpeg",
+    desc: `A crispy roll bursting with pork belly, coffee edge, and freegan flow.`,
+  },
+  {
+    id: 8,
+    title: "vintage grill combo",
+    category: "lunch",
+    price: 12.99,
+    img: "./images/item-8.jpeg",
+    desc: `Retro flavors with squid spice and leggings twist from a food truck dream.`,
+  },
+  {
+    id: 9,
+    title: "pandemic shake",
+    category: "shakes",
+    price: 16.99,
+    img: "./images/item-9.jpeg",
+    desc: `A comfort shake built with synth soul, edison bulb glow, and yuccie depth.`,
+  },
+];
+
+// get parent element
+const sectionCenter = document.querySelector(".section-center");
+const btnContainer = document.querySelector(".btn-container");
+const filterBtns = document.querySelectorAll(".filter-btn");
+
+// display all items when page loads
+window.addEventListener("DOMContentLoaded", function () {
+  diplayMenuItems(menu);
+});
+
+filterBtns.forEach(function (btn) {
+  btn.addEventListener("click", function (e) {
+    const category = e.currentTarget.dataset.id;
+    const menuCategory = menu.filter(function (menuItem) {
+      if (menuItem.category === category) {
+        return menuItem;
+      }
+    });
+    if (category === "all") {
+      diplayMenuItems(menu);
+    } else {
+      diplayMenuItems(menuCategory);
+    }
+  });
+});
+
+function diplayMenuItems(menuItems) {
+  let displayMenu = menuItems
+    .map(function (item) {
+      return `<article class="menu-item">
+          <img src=${item.img} alt="${item.title}" class="photo" />
+          <div class="item-info">
+            <header>
+              <h4>${item.title}</h4>
+              <h4 class="price">$${item.price}</h4>
+            </header>
+            <p class="item-text">
+              ${item.desc}
+            </p>
+          </div>
+        </article>`;
+    })
+    .join("");
+
+  sectionCenter.innerHTML = displayMenu;
+}
